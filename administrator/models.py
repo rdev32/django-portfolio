@@ -29,26 +29,26 @@ class Project(models.Model):
     class Meta():
         db_table = "projects"
 
-class OwnerProxy(Owner):
-    def get_json(self):
-        languages = [n.strip() for n in ast.literal_eval(self.languages)]
-        prog_languages = [n.strip() for n in ast.literal_eval(self.prog_languages)]
+    class OwnerProxy(Owner):
+        def get_json(self):
+            languages = [n.strip() for n in ast.literal_eval(self.languages)]
+            prog_languages = [n.strip() for n in ast.literal_eval(self.prog_languages)]
+            
+            return {
+                "name": self.name,
+                "lastname": self.lastname,
+                "email": self.email,
+                "phone": self.phone,
+                "born_date": self.born_date,
+                "username": self.username,
+                "password": self.password,
+                "photo_url": self.photo_url,
+                "languages": languages,
+                "prog_languages": prog_languages
+            }
         
-        return {
-            "name": self.name,
-            "lastname": self.lastname,
-            "email": self.email,
-            "phone": self.phone,
-            "born_date": self.born_date,
-            "username": self.username,
-            "password": self.password,
-            "photo_url": self.photo_url,
-            "languages": languages,
-            "prog_languages": prog_languages
-        }
-    
-    class Meta():
-        proxy = True
+        class Meta():
+            proxy = True
 
 class ProjectProxy(Project):
     def get_json(self):
