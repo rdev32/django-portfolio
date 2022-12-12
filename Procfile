@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn portfolio.wsgi
+web: python manage.py loaddata db.json && python manage.py migrate && gunicorn portfolio.wsgi
